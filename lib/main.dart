@@ -145,14 +145,16 @@ class _DinoGameState extends State<DinoGame> {
           children: [
             Expanded(
               flex: 2,
-              child: Stack(
-                children: [
-                  AnimatedContainer(
-                    alignment: Alignment(0, 1 + dinoYaxis),
-                    duration: const Duration(milliseconds: 0),
-                    child: const SizedBox(
-                      height: 60,
-                      width: 60,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return Stack(
+                    children: [
+                      Positioned(
+                        left: constraints.maxWidth * 0.2,
+                        bottom: (constraints.maxHeight * 0.7) * (1 - dinoYaxis),
+                        child: const SizedBox(
+                          height: 60,
+                          width: 60,
                       child: Transform(
                         transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
                         alignment: Alignment.center,
@@ -163,12 +165,12 @@ class _DinoGameState extends State<DinoGame> {
                       ),
                     ),
                   ),
-                  AnimatedContainer(
-                    alignment: Alignment(obstacleXaxis, 0.9),
-                    duration: const Duration(milliseconds: 0),
-                    child: const SizedBox(
-                      height: 50,
-                      width: 50,
+                  Positioned(
+                        left: constraints.maxWidth * (0.8 + obstacleXaxis),
+                        bottom: constraints.maxHeight * 0.7,
+                        child: const SizedBox(
+                          height: 50,
+                          width: 50,
                       child: Text(
                         '🌵',
                         style: TextStyle(fontSize: 40),
