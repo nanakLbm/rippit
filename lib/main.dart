@@ -65,7 +65,7 @@ class _DinoGameState extends State<DinoGame> {
   }
 
   void jump() {
-    if (!isJumping && dinoYaxis >= 0) {
+    if (!isJumping && dinoYaxis >= 0 && !gameOver) {
       setState(() {
         isJumping = true;
         time = 0;
