@@ -2,3 +2,15 @@ modules = ["web", "swift-5.8"]
 
 [nix]
 channel = "stable-24_05"
+
+[workflows]
+runButton = "Run Flutter"
+
+[[workflows.workflow]]
+name = "Run Flutter"
+author = 41842160
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "flutter run -d web-server --web-hostname=0.0.0.0 --web-port=5000"
