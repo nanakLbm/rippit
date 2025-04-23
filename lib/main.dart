@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +37,32 @@ class _DinoGameState extends State<DinoGame> {
   bool gameHasStarted = false;
   static double obstacleXaxis = 1;
   int score = 0;
+  int highScore = 0;
   bool gameOver = false;
-  
   bool isJumping = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loadHighScore();
+  }
+
+  Future<void> loadHighScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      highScore = prefs.getInt('highScore') ?? 0;
+    });
+  }
+
+  Future<void> updateHighScore() async {
+    if (score > highScore) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('highScore', score);
+      setState(() {
+        highScore = score;
+      });
+    }
+  }
 
   void jump() {
     if (!isJumping && dinoYaxis >= 0) {
@@ -72,6 +95,7 @@ class _DinoGameState extends State<DinoGame> {
         timer.cancel();
         gameHasStarted = false;
         gameOver = true;
+        updateHighScore(); // Update high score when game over
       } else if (height < 0) {
         // Landed (height becomes negative at end of jump)
         setState(() {
@@ -88,6 +112,7 @@ class _DinoGameState extends State<DinoGame> {
           timer.cancel();
           gameHasStarted = false;
           gameOver = true;
+          updateHighScore(); // Update high score when game over
         }
       }
     });
@@ -164,9 +189,17 @@ class _DinoGameState extends State<DinoGame> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Score: $score',
-                      style: const TextStyle(fontSize: 20),
+                    Column(
+                      children: [
+                        Text(
+                          'Score: $score',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          'High Score: $highScore',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ],
                     ),
                     if (!gameHasStarted) ...[
                       const Text(
