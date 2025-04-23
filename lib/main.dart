@@ -153,9 +153,13 @@ class _DinoGameState extends State<DinoGame> {
                     child: const SizedBox(
                       height: 60,
                       width: 60,
-                      child: Text(
-                        '🦖',
-                        style: TextStyle(fontSize: 40),
+                      child: Transform(
+                        transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '🦖',
+                          style: TextStyle(fontSize: 40),
+                        ),
                       ),
                     ),
                   ),
