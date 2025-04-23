@@ -39,11 +39,16 @@ class _DinoGameState extends State<DinoGame> {
   int score = 0;
   bool gameOver = false;
   
+  bool isJumping = false;
+
   void jump() {
-    setState(() {
-      time = 0;
-      initialHeight = dinoYaxis;
-    });
+    if (!isJumping && dinoYaxis >= 0) {
+      setState(() {
+        isJumping = true;
+        time = 0;
+        initialHeight = dinoYaxis;
+      });
+    }
   }
 
   void startGame() {
@@ -65,6 +70,8 @@ class _DinoGameState extends State<DinoGame> {
         timer.cancel();
         gameHasStarted = false;
         gameOver = true;
+      } else if (dinoYaxis >= 0) {
+        isJumping = false;
       }
 
       // Check for collision
