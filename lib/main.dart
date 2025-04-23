@@ -58,7 +58,9 @@ class _DinoGameState extends State<DinoGame> {
       height = -4.9 * time * time + 2.5 * time;
       setState(() {
         dinoYaxis = initialHeight - height;
-        obstacleXaxis -= 0.05;
+        // Increase speed based on score (0.05 base speed + 0.01 per 5 points)
+        double speedMultiplier = 1.0 + (score / 5) * 0.2;
+        obstacleXaxis -= 0.05 * speedMultiplier;
       });
 
       if (obstacleXaxis < -1.5) {
