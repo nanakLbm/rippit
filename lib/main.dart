@@ -70,11 +70,6 @@ class _DinoGameState extends State<DinoGame> {
         timer.cancel();
         gameHasStarted = false;
         gameOver = true;
-      } else if (dinoYaxis > 0) {
-        // Still falling, let gravity continue
-        setState(() {
-          dinoYaxis = 0;
-        });
       } else if (height < 0) {
         // Landed (height becomes negative at end of jump)
         setState(() {
