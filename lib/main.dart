@@ -164,11 +164,11 @@ class _DinoGameState extends State<DinoGame> {
                     ),
                   ),
                   AnimatedContainer(
-                    alignment: Alignment(obstacleXaxis, 1),
+                    alignment: Alignment(obstacleXaxis, 0.9),
                     duration: const Duration(milliseconds: 0),
                     child: const SizedBox(
-                      height: 60,
-                      width: 60,
+                      height: 50,
+                      width: 50,
                       child: Text(
                         '🌵',
                         style: TextStyle(fontSize: 40),
