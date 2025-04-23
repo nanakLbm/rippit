@@ -148,7 +148,7 @@ class _DinoGameState extends State<DinoGame> {
               child: Stack(
                 children: [
                   AnimatedContainer(
-                    alignment: Alignment(0, dinoYaxis),
+                    alignment: Alignment(0, 1 + dinoYaxis),
                     duration: const Duration(milliseconds: 0),
                     child: const SizedBox(
                       height: 60,
