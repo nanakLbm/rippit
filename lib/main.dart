@@ -71,7 +71,12 @@ class _DinoGameState extends State<DinoGame> {
         gameHasStarted = false;
         gameOver = true;
       } else if (dinoYaxis >= 0) {
-        isJumping = false;
+        setState(() {
+          dinoYaxis = 0;
+          isJumping = false;
+          time = 0;
+          height = 0;
+        });
       }
 
       // Check for collision
